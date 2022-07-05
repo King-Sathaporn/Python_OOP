@@ -38,27 +38,53 @@ class Employee:
 class Accounting(Employee):
     __department = "Accounting"
     def __init__(self, name, salary, age):
-        super().__init__(name, salary, age, self.__department) #? Subclass can get the attributes and methods of superclass using super().
+        super().__init__(name, salary, self.__department) #? Subclass can get the attributes and methods of superclass using super().
+        self.__age = age
+    def _showData(self):
+        super()._showData()
+        print("Age: ", self.__age)
+        print("\n")
 
 class Programmer(Employee):
     __department = "Programmer"
-    def __init__(self, name, salary, OT):
-        super().__init__(name, salary, OT,self.__department)
+    def __init__(self, name, salary, OT, skills):
+        super().__init__(name, salary,self.__department)
+        self.__OT = OT
+        self.__skills = skills
         super()._showData()
+    
+    def _showData(self):
+        super()._showData()
+        print("OT: ", self.__OT)
+        print("Skills: ", self.__skills)
+        print("\n")
 
 class Sales(Employee):
     __department = "Sales"
     def __init__(self, name, salary, commission):
-        super().__init__(name, salary, commission, self.__department)
-        print("Sales's salary per year: ", super()._getIncome())
+        super().__init__(name, salary, self.__department)
+        self.__commission = commission
+    
+    def _showData(self):
+        super()._showData()
+        print("Commission: ", self.__commission)
+        print("\n")
+    
+    def _calculateSalary(self):
+        return self.__salary + self.__commission
 
-accounting = Accounting("John", 10000)
+
+accounting = Accounting("John", 10000, 30)
 accounting._showData()
 
-programmer = Programmer("Mary", 20000)
+programmer = Programmer("Mary", 20000, 10, ["Python", "JavaScript, Golang"])
 
-sales = Sales("Tom", 30000)
+sales = Sales("Tom", 30000, 2500)
 
 print(accounting.__str__())
 print(programmer.__str__())
 print(sales.__str__())
+
+accounting._showData()
+programmer._showData()
+sales._showData()
